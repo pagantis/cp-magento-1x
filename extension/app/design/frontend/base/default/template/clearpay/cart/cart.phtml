@@ -1,0 +1,57 @@
+<div class="clearpay_cart_info" style="display: none">
+    <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', function(event) {
+            var div1 = document.querySelectorAll(".cart-totals button.btn-proceed-checkout");
+            var div2 = document.getElementsByClassName("clearpay_cart_info");
+
+            if (div1.length > 0 && div1.length > 0) {
+                div1 = div1[0];
+                div2 = div2[0];
+                div1.after(div2);
+                div2.style.setProperty('display', 'block');
+            }
+        })
+    </script>
+    <style>
+        .payment-method-note.clearpay-cart-note {
+            padding: 20px 0 10px 0;
+            text-align: left;
+        }
+        .payment-method-note.clearpay-cart-note.ps-1-6{
+            float: right;
+            width: 350px;
+        }
+        .clearpay-cart-note span {
+            font-size: 0.85rem;
+        }
+        .clearpay-cart-note.ps-1-6 span {
+            font-size: 1.20rem;
+        }
+        .clearpay-price-text {
+            font-weight: bold;
+        }
+        .clearpay-more-info {
+            text-align: right;
+            font-size: 0.85rem;
+        }
+        .clearpay-cart-note.ps-1-6 .clearpay-more-info {
+            font-size: 1.20rem;
+        }
+
+    </style>
+    <div class="payment-method-note clearpay-cart-note" style="">
+        <span class="clearpay-price-text">
+            <?php echo $PRICE_TEXT; ?> <?php echo $AMOUNT_WITH_CURRENCY; ?>
+        </span>
+        <br><br>
+        <span><?php echo $DESCRIPTION_TEXT_ONE; ?></span>
+        <br><br>
+        <span><?php echo $DESCRIPTION_TEXT_TWO; ?></span>
+        <br/>
+        <div class="clearpay-more-info">
+            <br/> <a href="javascript:void(0)" onclick="Afterpay.launchModal('<?php echo $ISO_COUNTRY_CODE; ?>');">
+                <?php echo $MORE_INFO; ?>
+            </a>
+        </div>
+    </div>
+</div>

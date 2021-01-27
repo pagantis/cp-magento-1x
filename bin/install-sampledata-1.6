@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+cd /tmp
+cp /opt/magento-sample-data-1.6.1.0.tgz .
+tar xvf magento-sample-data-1.6.1.0.tgz
+cp -R magento-sample-data-1.6.1.0/media/* /var/www/html/media/
+chown -R www-data:www-data /var/www/html/media
+
+sed -i 's/ROW_FORMAT=FIXED//g' magento-sample-data-1.6.1.0/magento_sample_data_for_1.6.1.0.sql
+mysql -h $MYSQL_HOST -u $MYSQL_USER -p$MYSQL_PASSWORD $MYSQL_DATABASE < magento-sample-data-1.6.1.0/magento_sample_data_for_1.6.1.0.sql

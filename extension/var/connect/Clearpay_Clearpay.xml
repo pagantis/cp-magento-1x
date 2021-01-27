@@ -1,0 +1,136 @@
+<_>
+   <form_key>p02Ezdec758Jdtkp</form_key>
+   <name>Clearpay_Clearpay</name>
+   <channel>community</channel>
+   <version_ids>
+      <version_ids>2</version_ids>
+   </version_ids>
+   <summary>Improve your sales and get higher conversion by giving your shoppers the freedom to pay later. Love it. Get it. Pay it later.</summary>
+   <description>&quot;Boost your sales
+Thanks to our flexible payment method, more shoppers can buy your products, increasing your conversion rate.
+ 
+Improve your average ticket
+Shoppers can buy more products, that translates into bigger shopping carts.
+ 
+Marketing engine
+Send qualified traffic to your online store.
+Co-marketing investments campaigns on social medial.
+Email marketing campaigns with referals to your online shop.
+And everything that is necessary to boost your sales! 
+Recurrent business: Clearpay is the payment method that puts the customer at the center of everything. Your customers will pay for their purchases in less than two months, which will allow them to buy again.&quot;</description>
+   <license>GPL</license>
+   <license_uri/>
+   <version>1.0.0</version>
+   <stability>stable</stability>
+   <notes>Clearpay Europe launch</notes>
+   <authors>
+      <name>
+         <name>Clearpay</name>
+      </name>
+      <user>
+         <user>clearpay</user>
+      </user>
+      <email>
+         <email>integrations@clearpay.com</email>
+      </email>
+   </authors>
+   <depends_php_min>5.3.0</depends_php_min>
+   <depends_php_max>8.0.0</depends_php_max>
+   <depends>
+      <package>
+         <name>
+            <name/>
+         </name>
+         <channel>
+            <channel/>
+         </channel>
+         <min>
+            <min/>
+         </min>
+         <max>
+            <max/>
+         </max>
+         <files>
+            <files>                                                                                  </files>
+         </files>
+      </package>
+      <extension>
+         <name>
+            <name>Core</name>
+         </name>
+         <min>
+            <min/>
+         </min>
+         <max>
+            <max/>
+         </max>
+      </extension>
+   </depends>
+   <contents>
+      <target>
+         <target>magelocal</target>
+         <target>magecommunity</target>
+         <target>magelib</target>
+         <target>magedesign</target>
+         <target>magedesign</target>
+         <target>magelocale</target>
+         <target>mageetc</target>
+         <target>magedesign</target>
+         <target>mageskin</target>
+         <target>mageskin</target>
+         <target>mageskin</target>
+      </target>
+      <path>
+         <path/>
+         <path>Clearpay</path>
+         <path>Clearpay</path>
+         <path>frontend/base/default/layout/clearpay.xml</path>
+         <path>frontend/base/default/template/clearpay</path>
+         <path/>
+         <path>modules/Clearpay_Clearpay.xml</path>
+         <path>adminhtml/default/default/layout/clearpay.xml</path>
+         <path>adminhtml/default/default/images/clearpay</path>
+         <path>frontend/base/default/images/clearpay</path>
+         <path>adminhtml/base/default/admin_clearpay.css</path>
+      </path>
+      <type>
+         <type>file</type>
+         <type>dir</type>
+         <type>dir</type>
+         <type>file</type>
+         <type>dir</type>
+         <type>dir</type>
+         <type>file</type>
+         <type>file</type>
+         <type>dir</type>
+         <type>dir</type>
+         <type>file</type>
+      </type>
+      <include>
+         <include/>
+         <include/>
+         <include/>
+         <include/>
+         <include/>
+         <include>#Clearpay_Clearpay.csv#</include>
+         <include/>
+         <include/>
+         <include/>
+         <include/>
+         <include/>
+      </include>
+      <ignore>
+         <ignore/>
+         <ignore/>
+         <ignore/>
+         <ignore/>
+         <ignore/>
+         <ignore/>
+         <ignore/>
+         <ignore/>
+         <ignore/>
+         <ignore/>
+         <ignore/>
+      </ignore>
+   </contents>
+</_>

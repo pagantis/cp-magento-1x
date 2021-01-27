@@ -1,0 +1,23 @@
+<?php
+/**
+ * @var string $orderUrl
+ * @var string $checkoutUrl
+ */
+?>
+<script type="text/javascript">
+    if (typeof pgSDK !== 'undefined') {
+        pgSDK.modal.open("<?php echo $orderUrl; ?>",
+            {
+                id: 'iframe-clearpay',
+                closeOnBackDropClick: false,
+                closeOnEscPress: false,
+                backDropDark: false,
+                largeSize: true,
+                closeConfirmationMessage: '<?php echo $leaveMessage;?>'
+            }
+        );
+        pgSDK.modal.onClose(function() {
+            window.location.href = "<?php echo $checkoutUrl; ?>";
+        });
+    }
+</script>

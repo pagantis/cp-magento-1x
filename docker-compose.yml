@@ -1,0 +1,174 @@
+version: "3.5"
+
+services:
+  magento16-dev:
+    container_name: magento16-dev
+    build:
+      context: ./
+      dockerfile: Dockerfile
+      args:
+        - MAGENTO_MAYOR_VERSION=16
+        - MAGENTO_VERSION=1.6.0.0
+        - MAGENTO_SAMPLEDATA_TGZ=magento-sample-data-1.6.1.0.tgz
+        - MAGENTO_SAMPLEDATA_INSTALLER=install-sampledata-1.6
+    environment:
+      - MAGENTO_ADMIN_FIRSTNAME=Owner
+      - MAGENTO_ADMIN_LASTNAME=Store
+      - MAGENTO_ADMIN_EMAIL=admin@example.com
+      - MAGENTO_ADMIN_USERNAME=admin
+      - MAGENTO_ADMIN_PASSWORD=password123
+      - MYSQL_HOST=magento16-db-dev
+      - MYSQL_DATABASE=magento
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=password
+      - MAGENTO_LOCALE=es_ES
+      - MAGENTO_TIMEZONE=Europe/Madrid
+      - MAGENTO_DEFAULT_CURRENCY=EUR
+      - MAGENTO_URL=magento16-dev.docker:8016
+    volumes:
+      - ./extension:/clearpay
+    links:
+      - magento16-db-dev
+    ports:
+      - "8016:80"
+    extra_hosts:
+      - "magento16-dev.docker:127.0.0.1"
+
+  magento16-test:
+    container_name: magento16-test
+    build:
+      context: ./
+      dockerfile: Dockerfile
+      args:
+        - MAGENTO_MAYOR_VERSION=16
+        - MAGENTO_VERSION=1.6.0.0
+        - MAGENTO_SAMPLEDATA_TGZ=magento-sample-data-1.6.1.0.tgz
+        - MAGENTO_SAMPLEDATA_INSTALLER=install-sampledata-1.6
+    environment:
+      - MAGENTO_MAYOR_VERSION=16
+      - MAGENTO_VERSION=1.6.0.0
+      - MAGENTO_ADMIN_FIRSTNAME=Owner
+      - MAGENTO_ADMIN_LASTNAME=Store
+      - MAGENTO_ADMIN_EMAIL=admin@example.com
+      - MAGENTO_ADMIN_USERNAME=admin
+      - MAGENTO_ADMIN_PASSWORD=password123
+      - MYSQL_HOST=magento16-db-test
+      - MYSQL_DATABASE=magento
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=password
+      - MAGENTO_LOCALE=en_GB
+      - MAGENTO_TIMEZONE=Europe/Madrid
+      - MAGENTO_DEFAULT_CURRENCY=GBP
+      - MAGENTO_URL=magento16-test.docker:8017
+      - MAGENTO_SAMPLEDATA_TGZ=magento-sample-data-1.6.1.0.tgz
+      - MAGENTO_SAMPLEDATA_INSTALLER=install-sampledata-1.6
+    volumes:
+      - ./extension:/clearpay
+    links:
+      - magento16-db-test
+    ports:
+      - "8017:80"
+    extra_hosts:
+      - "magento16-test.docker:127.0.0.1"
+
+  magento19-dev:
+    container_name: magento19-dev
+    build:
+      context: ./
+      dockerfile: Dockerfile
+      args:
+        - MAGENTO_MAYOR_VERSION=19
+        - MAGENTO_VERSION=1.9.4.2
+        - MAGENTO_SAMPLEDATA_TGZ=magento-sample-data-1.9.1.0.tgz
+        - MAGENTO_SAMPLEDATA_INSTALLER=install-sampledata-1.9
+    environment:
+      - MAGENTO_ADMIN_FIRSTNAME=Owner
+      - MAGENTO_ADMIN_LASTNAME=Store
+      - MAGENTO_ADMIN_EMAIL=admin@example.com
+      - MAGENTO_ADMIN_USERNAME=admin
+      - MAGENTO_ADMIN_PASSWORD=password123
+      - MYSQL_HOST=magento19-db-dev
+      - MYSQL_DATABASE=magento
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=password
+      - MAGENTO_LOCALE=es_ES
+      - MAGENTO_TIMEZONE=Europe/Madrid
+      - MAGENTO_DEFAULT_CURRENCY=EUR
+      - MAGENTO_URL=magento19-dev.docker:8080
+    volumes:
+      - ./extension:/clearpay
+    links:
+      - magento19-db-dev
+    ports:
+      - "8080:80"
+    extra_hosts:
+      - "magento19-dev.docker:127.0.0.1"
+
+  magento19-test:
+    container_name: magento19-test
+    build:
+      context: ./
+      dockerfile: Dockerfile
+      args:
+        - MAGENTO_MAYOR_VERSION=19
+        - MAGENTO_VERSION=1.9.4.2
+        - MAGENTO_SAMPLEDATA_TGZ=magento-sample-data-1.9.1.0.tgz
+        - MAGENTO_SAMPLEDATA_INSTALLER=install-sampledata-1.9
+    environment:
+      - MAGENTO_ADMIN_FIRSTNAME=Owner
+      - MAGENTO_ADMIN_LASTNAME=Store
+      - MAGENTO_ADMIN_EMAIL=admin@example.com
+      - MAGENTO_ADMIN_USERNAME=admin
+      - MAGENTO_ADMIN_PASSWORD=password123
+      - MYSQL_HOST=magento19-db-test
+      - MYSQL_DATABASE=magento
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=password
+      - MAGENTO_LOCALE=es_ES
+      - MAGENTO_TIMEZONE=Europe/Madrid
+      - MAGENTO_DEFAULT_CURRENCY=EUR
+      - MAGENTO_URL=magento19-test.docker:8082
+    links:
+      - magento19-db-test
+    ports:
+      - "8082:80"
+    extra_hosts:
+      - "magento19-test.docker:127.0.0.1"
+
+  magento16-db-dev:
+    container_name: magento16-db-dev
+    image: mysql:5.7
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_DATABASE=magento
+
+  magento16-db-test:
+    container_name: magento16-db-test
+    image: mysql:5.7
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_DATABASE=magento
+
+  magento19-db-dev:
+    container_name: magento19-db-dev
+    image: mysql:5.7
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_DATABASE=magento
+
+  magento19-db-test:
+    container_name: magento19-db-test
+    image: mysql:5.7
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_DATABASE=magento
+
+  selenium:
+    image: selenium/standalone-chrome:3.141.5
+    ports:
+      - "4444:4444"
+    extra_hosts:
+      - "magento19-test.docker:${DOCKERHOST}"
+      - "magento19-dev.docker:${DOCKERHOST}"
+      - "magento16-test.docker:${DOCKERHOST}"
+      - "magento16-dev.docker:${DOCKERHOST}"

@@ -1,0 +1,45 @@
+{
+    "name": "clearpay/magento-1x",
+    "description": "Clearpay Magento 1x module",
+    "type": "module",
+    "keywords": [
+        "api",
+        "rest",
+        "magento",
+        "module",
+        "ecommerce",
+        "payment",
+        "checkout",
+        "credit",
+        "clearpay",
+        "financiar",
+        "financiera",
+        "financiación"
+    ],
+    "homepage": "https://clearpay.com/",
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "Clearpay",
+            "email": "integrations@clearpay.com"
+        }
+    ],
+    "require": {
+        "afterpay-global/afterpay-sdk-php": "dev-downgrade-to-api-v1"
+    },
+    "require-dev": {
+        "ext-json": "*",
+        "pagantis/selenium-form-utils":"dev-clearpay",
+        "magento/core": "1.9.3.9"
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Test\\": "test/",
+            "Test\\Common\\": "test/common/"
+        }
+    },
+    "minimum-stability": "stable",
+    "config": {
+        "vendor-dir": "extension/lib/Clearpay"
+    }
+}

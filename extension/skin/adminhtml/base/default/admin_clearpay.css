@@ -1,0 +1,11 @@
+.adminLogo {
+    width:700px;
+    height:100px;
+    background:url(../../default/default/images/clearpay/logo.png) no-repeat 0 2px;
+    background-size: 150px;
+}
+
+.description {
+    margin-left: 170px;
+    padding: 6px;
+}

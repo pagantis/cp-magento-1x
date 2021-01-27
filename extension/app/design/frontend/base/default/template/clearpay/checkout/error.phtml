@@ -1,0 +1,151 @@
+<style>
+    /* The Modal (background) */
+    .modal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 9; /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    }
+
+    /* Modal Content/Box */
+    .modal-content {
+        background-color: #fefefe;
+        margin: 15% auto; /* 15% from the top and centered */
+        max-width: 800px; /* Could be more or less, depending on screen size */
+    }
+
+    /* The Close Button */
+    .close {
+        right: 10px;
+        color: #aaa;
+        font-size: 28px;
+        font-weight: bold;
+        position: absolute;
+        top: -3px;
+    }
+
+
+    .close:hover,
+    .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
+    #clearpay-method-content {
+        color: #7a7a7a;
+        border: 1px solid #000;
+        margin-bottom: 10px;
+    }
+    .clearpay-header {
+        color: #7a7a7a;
+        position: relative;
+        line-height: 40px;
+        text-align: right;
+        padding-right: 10px;
+        background-color: #b2fce4;
+    }
+    .clearpay-header-title {
+        padding-right: 30px;
+    }
+    .clearpay-header img {
+        height: 40px;
+        position: absolute;
+        top: 0px;
+        left: 5px;
+    }
+    .clearpay-more-info-text {
+        padding: 1em 3em;
+        text-align: center;
+        word-break: break-word;
+    }
+    .clearpay-terms {
+        margin-top: 10px;
+        display: inline-block;
+    }
+    @media only screen and (max-width: 1200px) {
+        .clearpay-header {
+            text-align: center;
+            padding-top: 30px;
+            display: block;
+            height: 65px !important;
+        }
+    }
+    @media only screen and (max-width: 1200px) and (min-width: 990px)  {
+        .clearpay-header img {
+            left:35%;
+        }
+    }
+    @media only screen and (max-width: 989px) and (min-width: 768px)  {
+        .clearpay-header img {
+            left:30%;
+        }
+        .clearpay-header {
+            height: 100px !important;
+        }
+    }
+    @media only screen and (max-width: 767px) and (min-width: 575px)  {
+        .clearpay-header img {
+            left:35%;
+        }
+        .clearpay-header {
+            height: 65px !important;
+        }
+    }
+    @media only screen and (max-width: 575px) {
+        .clearpay-header img {
+            left:28%;
+        }
+        .clearpay-header {
+            height: 100px !important;
+        }
+    }
+</style>
+<!-- The Modal -->
+<div id="myModal" class="modal">
+    <!-- Modal content -->
+    <div class="modal-content">
+        <section>
+            <div class="payment-method" id="clearpay-method" >
+                <div class="payment-method-content clearpay" id="clearpay-method-content">
+                    <div class="clearpay-header">
+                        <img src="<?php echo $this->getSkinUrl('images/clearpay/logo.png');;?>">
+                        <span class="clearpay-header-title"><?php echo($MODAL_TITLE);?></span>
+                        <span class="close">&times;</span>
+                    </div>
+                    <div class="clearpay-more-info-text">
+                        <div class="clearpay-more-info">
+                            <p><?php echo($ERROR_TITLE); ?></p>
+                            <p><?php echo($ERROR_MESSAGE); ?>
+                        </div>
+                        <br>
+                        <p><?php echo($MORE_INFO_MESSAGE); ?></p>
+                        <a class="clearpay-terms" href="<?php echo($MORE_INFO_LINK);?>" TARGET="_blank">
+                            <?php echo($MORE_INFO_LINK);?>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+<script>
+    var modal = document.getElementById("myModal");
+    var span = document.getElementsByClassName("close")[0];
+
+    modal.style.display = "block";
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>

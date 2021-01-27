@@ -1,0 +1,19 @@
+<?php
+/**
+ * @var Mage_Payment_Block_Form $this
+ */
+
+$logoUrl =$this->getSkinUrl('images/clearpay/logo.png');
+?>
+<style>
+    .clearpay-payment-method {
+        clear: both;
+    }
+    .clearpay-payment-method #logo {
+        float: right;
+        width: 75px;
+    }
+</style>
+<div class="clearpay-payment-method">
+    <?php echo $TITLE; ?><img id="logo" src="<?php echo $logoUrl ?>"/>
+</div>

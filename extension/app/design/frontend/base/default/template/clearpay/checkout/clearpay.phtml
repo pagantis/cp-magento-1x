@@ -1,0 +1,100 @@
+<?php
+/**
+ * @var Mage_Payment_Block_Form $this
+ * @var $publicKey string
+ * @var $amount string decimal
+ * @var $simulatorType int
+ */
+$logoUrl =$this->getSkinUrl('images/clearpay/logo.png');
+$iconUrl =$this->getSkinUrl('images/clearpay/favicon.png');
+?>
+<style>
+    #clearpay-method-content {
+        color: #7a7a7a;
+        border: 1px solid #000;
+        margin-bottom: 10px;
+    }
+    .clearpay-header {
+        color: #7a7a7a;
+        position: relative;
+        line-height: 40px;
+        text-align: right;
+        padding-right: 20px;
+        background-color: #b2fce4;
+    }
+    .clearpay-header img {
+        height: 40px;
+        position: absolute;
+        top: 0px;
+        left: 5px;
+    }
+    .clearpay-more-info-text {
+        padding: 1em 3em;
+        text-align: center;
+    }
+    .clearpay-terms {
+        margin-top: 10px;
+        display: inline-block;
+    }
+    @media only screen and (max-width: 1200px) {
+        .clearpay-header {
+            text-align: center;
+            padding-top: 30px;
+            display: block;
+            height: 65px !important;
+        }
+    }
+    @media only screen and (max-width: 1200px) and (min-width: 990px)  {
+        .clearpay-header img {
+            left:35%;
+        }
+    }
+    @media only screen and (max-width: 989px) and (min-width: 768px)  {
+        .clearpay-header img {
+            left:30%;
+        }
+        .clearpay-header {
+            height: 100px !important;
+        }
+    }
+    @media only screen and (max-width: 767px) and (min-width: 575px)  {
+        .clearpay-header img {
+            left:35%;
+        }
+        .clearpay-header {
+            height: 65px !important;
+        }
+    }
+    @media only screen and (max-width: 575px) {
+        .clearpay-header img {
+            left:28%;
+        }
+        .clearpay-header {
+            height: 100px !important;
+        }
+    }
+</style>
+<section>
+    <div class="payment-method" id="clearpay-method" >
+        <div class="payment-method-content clearpay" id="clearpay-method-content">
+            <div class="clearpay-header">
+                <img src="<?php echo $logoUrl;?>"> <?php echo $MOREINFO_HEADER;?>
+            </div>
+            <div class="clearpay-more-info-text">
+                <div class="clearpay-more-info">
+                    <?php echo $MOREINFO_ONE;?>
+                </div>
+                <afterpay-placement
+                        data-type="price-table"
+                        data-amount="<?php echo $TOTAL_AMOUNT;?>"
+                        data-price-table-theme="white"
+                        data-locale="<?php echo $ISO_COUNTRY_CODE;?>"
+                        data-currency="<?php echo $CURRENCY;?>">
+                </afterpay-placement>
+                <a class="clearpay-terms" href="<?php echo $TERMS_AND_CONDITIONS_LINK;?>" TARGET="_blank">
+                    <?php echo $TERMS_AND_CONDITIONS;?>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>

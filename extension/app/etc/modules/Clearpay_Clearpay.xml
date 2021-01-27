@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+      <Clearpay_Clearpay>
+          <active>true</active>
+              <codePool>community</codePool>
+              <depends>
+                  <Mage_Payment/>
+              </depends>
+      </Clearpay_Clearpay>
+  </modules>
+  <frontend>
+    <translate>
+        <modules>
+            <Clearpay_Clearpay>
+                <files>
+                    <alternative>Clearpay_Clearpay.csv</alternative>
+                </files>
+            </Clearpay_Clearpay>
+        </modules>
+    </translate>
+  </frontend>
+  <adminhtml>
+    <translate>
+        <modules>
+            <Clearpay_Clearpay>
+                <files>
+                    <alternative>Clearpay_Clearpay.csv</alternative>
+                </files>
+            </Clearpay_Clearpay>
+        </modules>
+    </translate>
+  </adminhtml>
+</config>
