@@ -21,8 +21,6 @@ lib/Clearpay/            lib/Clearpay/
 # skin
 skin/frontend/base/default/images/clearpay/logo.png            skin/frontend/base/default/images/clearpay/logo.png
 skin/frontend/base/default/images/clearpay/favicon.png            skin/frontend/base/default/images/clearpay/favicon.png
-skin/adminhtml/base/default/images/clearpay/logo.png            skin/adminhtml/base/default/images/clearpay/logo.png
-skin/adminhtml/base/default/images/clearpay/favicon.png            skin/adminhtml/base/default/images/clearpay/favicon.png
 skin/adminhtml/base/default/admin_clearpay.css            skin/adminhtml/base/default/admin_clearpay.css
 # var
 var/connect            var/connect

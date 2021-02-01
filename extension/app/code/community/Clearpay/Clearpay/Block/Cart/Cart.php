@@ -53,6 +53,18 @@ class Clearpay_Clearpay_Block_Cart_Cart extends Mage_Core_Block_Template
 
         //$categoryRestriction = $this->isProductRestricted($config['clearpay_exclude_category']);
         $categoryRestriction = false;
+        $categoryRestriction = false;
+        $productCategories = array();
+        $cart = Mage::getModel('checkout/cart')->getQuote();
+        foreach ($cart->getAllVisibleItems() as $item) {
+            $magentoProduct = $item->getProduct();
+            $productCategories = array_merge($productCategories, $magentoProduct->getCategoryIds());
+        }
+        $clearpayRestrictedCategories = $config['clearpay_exclude_category'];
+        if (!empty($clearpayRestrictedCategories)) {
+            $clearpayRestrictedCategories = explode(",", $clearpayRestrictedCategories);
+            $categoryRestriction = (bool) count(array_intersect($productCategories, $clearpayRestrictedCategories));
+        }
         if (in_array(strtoupper($locale), $allowedCountries) &&
             $config['active'] === '1' &&
             !empty($config['clearpay_merchant_id']) &&
@@ -64,6 +76,10 @@ class Clearpay_Clearpay_Block_Cart_Cart extends Mage_Core_Block_Template
             $desc1 .= ' ' . $this->__('Available to customers in the United Kingdom with a debit or credit card.');
             $desc2 = $this->__('When you click ”Checkout with Clearpay”');
             $desc2 .= ' ' . $this->__('you will be redirected to Clearpay to complete your order.');
+            $positionSelector = (Mage::getVersion() < "1.9") ?
+                '.cart-collaterals .checkout-types' :
+                '.cart-totals button.btn-proceed-checkout'
+            ;
             $variables = array(
                 'PRICE_TEXT' => $this->__('4 interest-free payments of'),
                 'AMOUNT_WITH_CURRENCY' => $amountWithCurrency,
@@ -71,6 +87,7 @@ class Clearpay_Clearpay_Block_Cart_Cart extends Mage_Core_Block_Template
                 'DESCRIPTION_TEXT_TWO' => $desc2,
                 'ISO_COUNTRY_CODE' => $localeISOCode,
                 'MORE_INFO' => $this->__('FIND OUT MORE'),
+                'POSITION_SELECTOR' => $positionSelector,
             );
             $template = $this->setTemplate('clearpay/cart/cart.phtml');
             $template->assign($variables);

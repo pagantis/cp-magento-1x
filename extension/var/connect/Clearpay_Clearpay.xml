@@ -1,5 +1,5 @@
 <_>
-   <form_key>p02Ezdec758Jdtkp</form_key>
+   <form_key>NRikdk3HwZ6hWs6B</form_key>
    <name>Clearpay_Clearpay</name>
    <channel>community</channel>
    <version_ids>
@@ -22,7 +22,8 @@ Recurrent business: Clearpay is the payment method that puts the customer at the
    <license_uri/>
    <version>1.0.0</version>
    <stability>stable</stability>
-   <notes>Clearpay Europe launch</notes>
+   <notes>* Clearpay Europe launch
+* Magento 1.6.x and Magento 1.9.x compatible</notes>
    <authors>
       <name>
          <name>Clearpay</name>
@@ -51,7 +52,7 @@ Recurrent business: Clearpay is the payment method that puts the customer at the
             <max/>
          </max>
          <files>
-            <files>                                                                                  </files>
+            <files>                                                                                   </files>
          </files>
       </package>
       <extension>

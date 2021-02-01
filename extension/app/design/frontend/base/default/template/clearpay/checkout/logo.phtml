@@ -4,6 +4,7 @@
  */
 
 $logoUrl =$this->getSkinUrl('images/clearpay/logo.png');
+$magentoVersion = str_replace('.', '-', substr(Mage::getVersion(), 0, 3));
 ?>
 <style>
     .clearpay-payment-method {
@@ -13,7 +14,13 @@ $logoUrl =$this->getSkinUrl('images/clearpay/logo.png');
         float: right;
         width: 75px;
     }
+    .magento-1-6 {
+        display: inline-block;
+    }
+    .magento-1-6 #logo {
+        float: none;
+    }
 </style>
-<div class="clearpay-payment-method">
+<div class="clearpay-payment-method magento-<?php echo $magentoVersion; ?>">
     <?php echo $TITLE; ?><img id="logo" src="<?php echo $logoUrl ?>"/>
 </div>

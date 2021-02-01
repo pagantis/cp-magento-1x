@@ -1,7 +1,7 @@
-.adminLogo {
+.adminCPLogo {
     width:700px;
     height:100px;
-    background:url(../../default/default/images/clearpay/logo.png) no-repeat 0 2px;
+    background:url(../../../frontend/base/default/images/clearpay/logo.png) no-repeat 0 2px;
     background-size: 150px;
 }
 

@@ -56,4 +56,3 @@ $installer->run("INSERT INTO `$this->tableName`
     ('PRICE_SELECTOR_CONTAINER', '.price-info')");
 
 $installer->endSetup();
-

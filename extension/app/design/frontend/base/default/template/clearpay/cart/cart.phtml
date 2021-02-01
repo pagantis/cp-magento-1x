@@ -1,7 +1,7 @@
 <div class="clearpay_cart_info" style="display: none">
     <script type="text/javascript">
         document.addEventListener('DOMContentLoaded', function(event) {
-            var div1 = document.querySelectorAll(".cart-totals button.btn-proceed-checkout");
+            var div1 = document.querySelectorAll("<?php echo $POSITION_SELECTOR; ?>");
             var div2 = document.getElementsByClassName("clearpay_cart_info");
 
             if (div1.length > 0 && div1.length > 0) {
