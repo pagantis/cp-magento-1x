@@ -1,0 +1,51 @@
+FROM alexcheng/apache2-php5:5.6.33
+
+RUN a2enmod rewrite
+
+ENV INSTALL_DIR /var/www/html
+ARG MAGENTO_MAYOR_VERSION
+ARG MAGENTO_VERSION
+ARG MAGENTO_SAMPLEDATA_TGZ
+ARG MAGENTO_SAMPLEDATA_INSTALLER
+
+RUN chown -R www-data:www-data $INSTALL_DIR
+
+RUN apt-get update
+RUN apt-get install -y mysql-client-5.7
+RUN apt-get install -y libxml2-dev
+RUN apt-get install -y libmcrypt4
+RUN apt-get install -y libmcrypt-dev
+RUN apt-get install -y libpng-dev
+RUN apt-get install -y libjpeg-dev
+RUN apt-get install -y libfreetype6
+RUN apt-get install -y libfreetype6-dev
+RUN docker-php-ext-install soap
+RUN docker-php-ext-install pdo_mysql
+RUN docker-php-ext-install mcrypt
+RUN docker-php-ext-configure gd --with-jpeg-dir=/usr/lib/ --with-freetype-dir=/usr/lib/ && docker-php-ext-install gd
+
+# curl https://codeload.github.com/OpenMage/magento-mirror/tar.gz/$MAGENTO_VERSION -o $MAGENTO_VERSION.tar.gz && \
+
+RUN cd /tmp && \
+    curl http://167.71.136.238/m1_ee.tar.gz -o m1_ee.tar.gz && \
+    tar xvf m1_ee.tar.gz
+RUN cd /tmp && \
+    rm m1_ee.tar.gz && \
+    mv m1_ee/* m1_ee/.htaccess $INSTALL_DIR
+
+COPY ./bin/install-magento /usr/local/bin/install-magento
+RUN chmod +x /usr/local/bin/install-magento
+
+COPY ./resources/sampledata/$MAGENTO_SAMPLEDATA_TGZ /opt/
+COPY ./bin/$MAGENTO_SAMPLEDATA_INSTALLER /usr/local/bin/install-sampledata
+RUN chmod +x /usr/local/bin/install-sampledata
+
+RUN bash -c 'bash < <(curl -s -L https://raw.github.com/colinmollenhour/modman/master/modman-installer)'
+RUN mv ~/bin/modman /usr/local/bin
+
+RUN cd $INSTALL_DIR
+RUN chmod -R 777 app/etc
+RUN chmod -R 777 var
+RUN chmod -R 777 media
+
+WORKDIR $INSTALL_DIR

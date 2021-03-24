@@ -1,9 +1,10 @@
 #!/bin/bash
 while true; do
-    read -p "Do you want to install magento 1.9.x or 1.6.x [19|16]? " version
+    read -p "Do you want to install magento 1.9.x or 1.6.x or 1.14.x[19|16|114]? " version
     case $version in
         [19]* ) break;;
         [16]* ) break;;
+        [114]* ) break;;
         * ) echo "Please answer 19 or 16.";;
     esac
 done
@@ -28,17 +29,8 @@ done
 composer install
 
 # Prepare environment and build package
-docker-compose down
-docker-compose up -d ${container} selenium
+docker-compose up -d ${container}
 sleep 10
-
-# Copy Files for test container
-if [ $test = true ];
-then
-    docker cp ./extension/. ${container}:/clearpay/
-else
-    export MAGENTO_TEST_ENV=dev
-fi
 
 if [ $version = "16" ];
 then
