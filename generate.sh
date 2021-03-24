@@ -50,56 +50,7 @@ docker-compose exec ${container} curl -O https://files.magerun.net/n98-magerun.p
 docker-compose exec ${container} chmod +x n98-magerun.phar
 docker-compose exec ${container} ./n98-magerun.phar dev:symlinks 1
 
-sleep 20
+sleep 10
 set -e
-
-while true; do
-    read -p "Do you want to run full tests battery or only configure the module [full/configure]? " tests
-    case $tests in
-        [full]* ) break;;
-        [configure]* ) break;;
-        * ) echo "Please answer full or configure."; exit;;
-    esac
-done
-
-if [ $tests = "full" ];
-then
-    echo "magento $version tests start"
-    # Run test
-    echo magento-basic
-    extension/lib/Clearpay/bin/phpunit --group magento-basic-$version
-    echo magento-configure-backoffice
-    extension/lib/Clearpay/bin/phpunit --group magento-configure-backoffice-$version
-    echo magento-product-page
-    extension/lib/Clearpay/bin/phpunit --group magento-product-page-$version
-    echo magento-register
-    extension/lib/Clearpay/bin/phpunit --group magento-register-$version
-    echo magento-fill-data
-    extension/lib/Clearpay/bin/phpunit --group magento-fill-data-$version
-    echo magento-buy-unregistered
-    extension/lib/Clearpay/bin/phpunit --group magento-buy-unregistered-$version
-    echo magento-cancel-buy-unregistered
-    extension/lib/Clearpay/bin/phpunit --group magento-cancel-buy-unregistered-$version
-    echo magento-buy-registered
-    extension/lib/Clearpay/bin/phpunit --group magento-buy-registered-$version
-    echo magento-cancel-buy-registered
-    extension/lib/Clearpay/bin/phpunit --group magento-cancel-buy-registered-$version
-    echo magento-cancel-buy-controllers
-    extension/lib/Clearpay/bin/phpunit --group magento-controllers-$version
-
-    # Copy Files for test container
-    if [ $test = true ];
-    then
-        # Generate Pakage
-        echo magento-package
-        extension/lib/Clearpay/bin/phpunit --group magento-package
-    fi
-else
-    echo "magento $version configuration start"
-    echo magento-basic
-    extension/lib/Clearpay/bin/phpunit --group magento-basic-$version
-    echo magento-configure-backoffice
-    extension/lib/Clearpay/bin/phpunit --group magento-configure-backoffice-$version
-fi
 
 docker-compose exec ${container} ./n98-magerun.phar cache:flush
