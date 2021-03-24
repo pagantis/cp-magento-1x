@@ -32,6 +32,13 @@ composer install
 docker-compose up -d ${container}
 sleep 10
 
+if [ $test = true ];
+then
+    docker cp ./extension/. ${container}:/clearpay/
+else
+    export MAGENTO_TEST_ENV=dev
+fi
+
 if [ $version = "16" ];
 then
     echo "copying ./resources/Mysql4.php into ${container}:/var/www/html/app/code/core/Mage/Install/Model/Installer/Db/"
