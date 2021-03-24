@@ -158,7 +158,7 @@ services:
       - MAGENTO_LOCALE=es_ES
       - MAGENTO_TIMEZONE=Europe/Madrid
       - MAGENTO_DEFAULT_CURRENCY=EUR
-      - MAGENTO_URL=magento114-dev.docker:8080
+      - MAGENTO_URL=magento114-dev.docker:8083
     volumes:
       - ./extension:/clearpay
     links:
@@ -191,7 +191,7 @@ services:
       - MAGENTO_LOCALE=es_ES
       - MAGENTO_TIMEZONE=Europe/Madrid
       - MAGENTO_DEFAULT_CURRENCY=EUR
-      - MAGENTO_URL=magento114-test.docker:8082
+      - MAGENTO_URL=magento114-test.docker:8084
     links:
       - magento114-db-test
     ports:

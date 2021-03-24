@@ -88,7 +88,6 @@ class Clearpay_Clearpay_Block_Checkout_Clearpay extends Mage_Payment_Block_Form
         }
         $checkoutText = $this->__('Or 4 interest-free payments of') . ' ' . $amountWithCurrency . ' ';
         $checkoutText .= $this->__('with');
-
         $logoHtml = '';
         if ($config['active']) {
             $logoTemplate = new $classCoreTemplate;

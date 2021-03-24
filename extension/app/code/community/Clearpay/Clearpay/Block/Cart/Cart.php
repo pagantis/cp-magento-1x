@@ -24,13 +24,6 @@ class Clearpay_Clearpay_Block_Cart_Cart extends Mage_Core_Block_Template
         $checkoutSession = Mage::getModel('checkout/session');
         $quote = $checkoutSession->getQuote();
         $amount = $quote->getGrandTotal();
-        $currency = Mage::app()->getStore()->getCurrentCurrencyCode();
-
-        $amountWithCurrency = $this->parseAmount($amount/4) . $currencySymbol;
-        if ($currency === 'GBP') {
-            $amountWithCurrency = $currencySymbol . $this->parseAmount($amount/4);
-        }
-
         $productCategories = array();
         $cart = Mage::getModel('checkout/cart')->getQuote();
         foreach ($cart->getAllVisibleItems() as $item) {
@@ -55,15 +48,17 @@ class Clearpay_Clearpay_Block_Cart_Cart extends Mage_Core_Block_Template
             $desc2 .= ' ' . $this->__('you will be redirected to Clearpay to complete your order.');
             $version = explode('.', Mage::getVersion());
             $version = $version[1];
-            $positionSelector = '.cart-totals button.btn-proceed-checkout';
-            if ($version < "9") {
-                $positionSelector = '.cart-collaterals .checkout-types';
-            } else if ($version > "9") {
-                $positionSelector = '#shopping-cart-totals-table';
+            $positionSelector = $config['clearpay_cart_position_selector'];
+            if ($positionSelector == 'default' || empty($positionSelector)) {
+                $positionSelector = '.cart-totals button.btn-proceed-checkout';
+                if ($version < "9") {
+                    $positionSelector = '.cart-collaterals .checkout-types';
+                } else if ($version > "9") {
+                    $positionSelector = '#shopping-cart-totals-table';
+                }
             }
+
             $variables = array(
-                'PRICE_TEXT' => $this->__('4 interest-free payments of'),
-                'AMOUNT_WITH_CURRENCY' => $amountWithCurrency,
                 'AMOUNT' => $amount,
                 'DESCRIPTION_TEXT_ONE' => $desc1,
                 'DESCRIPTION_TEXT_TWO' => $desc2,

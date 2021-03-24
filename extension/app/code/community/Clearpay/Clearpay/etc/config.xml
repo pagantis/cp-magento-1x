@@ -131,6 +131,9 @@
                 <sort_order>1</sort_order>
                 <clearpay_environment>sandbox</clearpay_environment>
                 <clearpay_api_region>ES</clearpay_api_region>
+                <clearpay_price_selector>default</clearpay_price_selector>
+                <clearpay_position_selector>default</clearpay_position_selector>
+                <clearpay_cart_position_selector>default</clearpay_cart_position_selector>
             </clearpay>
         </payment>
     </default>

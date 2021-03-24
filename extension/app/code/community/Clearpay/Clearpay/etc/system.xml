@@ -85,6 +85,33 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
                         </clearpay_exclude_category>
+                        <clearpay_price_selector translate="label">
+                            <label>Product page Price CSS selector</label>
+                            <frontend_type>text</frontend_type>
+                            <disabled>0</disabled>
+                            <sort_order>09</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </clearpay_price_selector>
+                        <clearpay_position_selector translate="label">
+                            <label>Product page Position CSS selector</label>
+                            <frontend_type>text</frontend_type>
+                            <disabled>0</disabled>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </clearpay_position_selector>
+                        <clearpay_cart_position_selector translate="label">
+                            <label>Cart page Position CSS selector</label>
+                            <frontend_type>text</frontend_type>
+                            <disabled>0</disabled>
+                            <sort_order>11</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </clearpay_cart_position_selector>
                     </fields>
                 </clearpay>
             </groups>

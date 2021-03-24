@@ -51,6 +51,8 @@ class Clearpay_Clearpay_Model_Observer
     public function paymentMethodIsActive(Varien_Event_Observer $observer)
     {
         $method = $observer->getMethodInstance();
+        $result = $observer->getResult();
+        $result->isAvailable = true;
         if ($method->getCode() == 'clearpay') {
             $config = Mage::getStoreConfig('payment/clearpay');
             $extraConfig = Mage::helper('clearpay/ExtraConfig')->getExtraConfig();
