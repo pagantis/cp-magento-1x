@@ -24,36 +24,13 @@ class Clearpay_Clearpay_Block_Cart_Cart extends Mage_Core_Block_Template
         $checkoutSession = Mage::getModel('checkout/session');
         $quote = $checkoutSession->getQuote();
         $amount = $quote->getGrandTotal();
-        $localConfigs = array(
-            'ES' => array(
-                'currency' => 'EUR',
-                'symbol' => '€'
-            ),
-            'GB' => array(
-                'currency' => 'GBP',
-                'symbol' => '£'
-            ),
-            'US' => array(
-                'currency' => 'USD',
-                'symbol' => '$'
-            ),
-        );
-        $currency = 'EUR';
-        $currencySymbol = "€";
-
-        if (isset($localConfigs[$config['clearpay_api_region']])) {
-            $currency = $localConfigs[$config['clearpay_api_region']]['currency'];
-            $currencySymbol = $localConfigs[$config['clearpay_api_region']]['symbol'];
-        }
+        $currency = Mage::app()->getStore()->getCurrentCurrencyCode();
 
         $amountWithCurrency = $this->parseAmount($amount/4) . $currencySymbol;
         if ($currency === 'GBP') {
             $amountWithCurrency = $currencySymbol . $this->parseAmount($amount/4);
         }
 
-        //$categoryRestriction = $this->isProductRestricted($config['clearpay_exclude_category']);
-        $categoryRestriction = false;
-        $categoryRestriction = false;
         $productCategories = array();
         $cart = Mage::getModel('checkout/cart')->getQuote();
         foreach ($cart->getAllVisibleItems() as $item) {
@@ -76,17 +53,21 @@ class Clearpay_Clearpay_Block_Cart_Cart extends Mage_Core_Block_Template
             $desc1 .= ' ' . $this->__('Available to customers in the United Kingdom with a debit or credit card.');
             $desc2 = $this->__('When you click ”Checkout with Clearpay”');
             $desc2 .= ' ' . $this->__('you will be redirected to Clearpay to complete your order.');
-            $positionSelector = (Mage::getVersion() < "1.9") ?
-                '.cart-collaterals .checkout-types' :
-                '.cart-totals button.btn-proceed-checkout'
-            ;
+            $version = explode('.', Mage::getVersion());
+            $version = $version[1];
+            $positionSelector = '.cart-totals button.btn-proceed-checkout';
+            if ($version < "9") {
+                $positionSelector = '.cart-collaterals .checkout-types';
+            } else if ($version > "9") {
+                $positionSelector = '#shopping-cart-totals-table';
+            }
             $variables = array(
                 'PRICE_TEXT' => $this->__('4 interest-free payments of'),
                 'AMOUNT_WITH_CURRENCY' => $amountWithCurrency,
+                'AMOUNT' => $amount,
                 'DESCRIPTION_TEXT_ONE' => $desc1,
                 'DESCRIPTION_TEXT_TWO' => $desc2,
                 'ISO_COUNTRY_CODE' => $localeISOCode,
-                'MORE_INFO' => $this->__('FIND OUT MORE'),
                 'POSITION_SELECTOR' => $positionSelector,
             );
             $template = $this->setTemplate('clearpay/cart/cart.phtml');
@@ -129,5 +110,4 @@ class Clearpay_Clearpay_Block_Cart_Cart extends Mage_Core_Block_Template
             ''
         );
     }
-
 }

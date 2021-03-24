@@ -40,18 +40,15 @@
 
     </style>
     <div class="payment-method-note clearpay-cart-note" style="">
-        <span class="clearpay-price-text">
-            <?php echo $PRICE_TEXT; ?> <?php echo $AMOUNT_WITH_CURRENCY; ?>
-        </span>
-        <br><br>
+        <afterpay-placement
+                data-locale="<?php echo $ISO_COUNTRY_CODE;?>"
+                data-currency="<?php echo $CURRENCY;?>"
+                data-amount="<?php echo $AMOUNT;?>"
+                data-size="sm">
+        </afterpay-placement>
         <span><?php echo $DESCRIPTION_TEXT_ONE; ?></span>
         <br><br>
         <span><?php echo $DESCRIPTION_TEXT_TWO; ?></span>
-        <br/>
-        <div class="clearpay-more-info">
-            <br/> <a href="javascript:void(0)" onclick="Afterpay.launchModal('<?php echo $ISO_COUNTRY_CODE; ?>');">
-                <?php echo $MORE_INFO; ?>
-            </a>
-        </div>
+        <br>
     </div>
 </div>

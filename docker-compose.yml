@@ -135,6 +135,70 @@ services:
     extra_hosts:
       - "magento19-test.docker:127.0.0.1"
 
+  magento114-dev:
+    container_name: magento114-dev
+    build:
+      context: ./
+      dockerfile: Dockerfile_EE
+      args:
+        - MAGENTO_MAYOR_VERSION=114
+        - MAGENTO_VERSION=1.14.ee
+        - MAGENTO_SAMPLEDATA_TGZ=magento-sample-data-1.9.1.0.tgz
+        - MAGENTO_SAMPLEDATA_INSTALLER=install-sampledata-1.9
+    environment:
+      - MAGENTO_ADMIN_FIRSTNAME=Owner
+      - MAGENTO_ADMIN_LASTNAME=Store
+      - MAGENTO_ADMIN_EMAIL=admin@example.com
+      - MAGENTO_ADMIN_USERNAME=admin
+      - MAGENTO_ADMIN_PASSWORD=password123
+      - MYSQL_HOST=magento114-db-dev
+      - MYSQL_DATABASE=magento
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=password
+      - MAGENTO_LOCALE=es_ES
+      - MAGENTO_TIMEZONE=Europe/Madrid
+      - MAGENTO_DEFAULT_CURRENCY=EUR
+      - MAGENTO_URL=magento114-dev.docker:8080
+    volumes:
+      - ./extension:/clearpay
+    links:
+      - magento114-db-dev
+    ports:
+      - "8083:80"
+    extra_hosts:
+      - "magento114-dev.docker:127.0.0.1"
+
+  magento114-test:
+    container_name: magento114-test
+    build:
+      context: ./
+      dockerfile: Dockerfile_EE
+      args:
+        - MAGENTO_MAYOR_VERSION=114
+        - MAGENTO_VERSION=1.14.ee
+        - MAGENTO_SAMPLEDATA_TGZ=magento-sample-data-1.9.1.0.tgz
+        - MAGENTO_SAMPLEDATA_INSTALLER=install-sampledata-1.9
+    environment:
+      - MAGENTO_ADMIN_FIRSTNAME=Owner
+      - MAGENTO_ADMIN_LASTNAME=Store
+      - MAGENTO_ADMIN_EMAIL=admin@example.com
+      - MAGENTO_ADMIN_USERNAME=admin
+      - MAGENTO_ADMIN_PASSWORD=password123
+      - MYSQL_HOST=magento114-db-test
+      - MYSQL_DATABASE=magento
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=password
+      - MAGENTO_LOCALE=es_ES
+      - MAGENTO_TIMEZONE=Europe/Madrid
+      - MAGENTO_DEFAULT_CURRENCY=EUR
+      - MAGENTO_URL=magento114-test.docker:8082
+    links:
+      - magento114-db-test
+    ports:
+      - "8084:80"
+    extra_hosts:
+      - "magento114-test.docker:127.0.0.1"
+
   magento16-db-dev:
     container_name: magento16-db-dev
     image: mysql:5.7
@@ -163,11 +227,27 @@ services:
       - MYSQL_ROOT_PASSWORD=password
       - MYSQL_DATABASE=magento
 
+  magento114-db-dev:
+    container_name: magento114-db-dev
+    image: mysql:5.7
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_DATABASE=magento
+
+  magento114-db-test:
+    container_name: magento114-db-test
+    image: mysql:5.7
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_DATABASE=magento
+
   selenium:
     image: selenium/standalone-chrome:3.141.5
     ports:
       - "4444:4444"
     extra_hosts:
+      - "magento114-test.docker:${DOCKERHOST}"
+      - "magento114-dev.docker:${DOCKERHOST}"
       - "magento19-test.docker:${DOCKERHOST}"
       - "magento19-dev.docker:${DOCKERHOST}"
       - "magento16-test.docker:${DOCKERHOST}"
