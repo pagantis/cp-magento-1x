@@ -54,8 +54,6 @@ class Clearpay_Clearpay_Block_Checkout_Clearpay extends Mage_Payment_Block_Form
         }
         /** @var Mage_Checkout_Model_Session $checkoutSession */
         $config = Mage::getStoreConfig('payment/clearpay');
-        $extraConfig = Mage::helper('clearpay/ExtraConfig')->getExtraConfig();
-        $locale = substr(Mage::app()->getLocale()->getLocaleCode(), -2, 2);
         $localeISOCode = Mage::app()->getLocale()->getLocaleCode();
         $checkoutSession = Mage::getModel('checkout/session');
         $quote = $checkoutSession->getQuote();
@@ -88,6 +86,7 @@ class Clearpay_Clearpay_Block_Checkout_Clearpay extends Mage_Payment_Block_Form
         }
         $checkoutText = $this->__('Or 4 interest-free payments of') . ' ' . $amountWithCurrency . ' ';
         $checkoutText .= $this->__('with');
+
         $logoHtml = '';
         if ($config['active']) {
             $logoTemplate = new $classCoreTemplate;

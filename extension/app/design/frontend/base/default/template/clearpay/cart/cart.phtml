@@ -27,25 +27,19 @@
         .clearpay-cart-note.ps-1-6 span {
             font-size: 1.20rem;
         }
-        .clearpay-price-text {
-            font-weight: bold;
-        }
-        .clearpay-more-info {
-            text-align: right;
-            font-size: 0.85rem;
-        }
-        .clearpay-cart-note.ps-1-6 .clearpay-more-info {
-            font-size: 1.20rem;
+        .clearpay-cart-note.version-6 {
+            padding: 10px;
         }
 
     </style>
-    <div class="payment-method-note clearpay-cart-note" style="">
+    <div class="payment-method-note clearpay-cart-note version-<?php echo $VERSION;?>" style="">
         <afterpay-placement
                 data-locale="<?php echo $ISO_COUNTRY_CODE;?>"
                 data-currency="<?php echo $CURRENCY;?>"
                 data-amount="<?php echo $AMOUNT;?>"
                 data-size="sm">
         </afterpay-placement>
+        <br>
         <span><?php echo $DESCRIPTION_TEXT_ONE; ?></span>
         <br><br>
         <span><?php echo $DESCRIPTION_TEXT_TWO; ?></span>

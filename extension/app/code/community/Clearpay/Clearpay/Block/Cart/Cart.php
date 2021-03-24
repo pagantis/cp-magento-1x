@@ -64,6 +64,7 @@ class Clearpay_Clearpay_Block_Cart_Cart extends Mage_Core_Block_Template
                 'DESCRIPTION_TEXT_TWO' => $desc2,
                 'ISO_COUNTRY_CODE' => $localeISOCode,
                 'POSITION_SELECTOR' => $positionSelector,
+                'VERSION' => $version
             );
             $template = $this->setTemplate('clearpay/cart/cart.phtml');
             $template->assign($variables);

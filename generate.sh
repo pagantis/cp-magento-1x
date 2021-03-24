@@ -29,8 +29,7 @@ done
 composer install
 
 # Prepare environment and build package
-docker-compose down
-docker-compose up -d ${container} selenium
+docker-compose up -d ${container}
 sleep 10
 
 if [ $version = "16" ];
