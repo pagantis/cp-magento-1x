@@ -379,10 +379,13 @@ class Clearpay_Clearpay_NotifyController extends AbstractController
                 if ($invoice->getGrandTotal() > 0) {
                     $invoice
                         ->setRequestedCaptureCase(Mage_Sales_Model_Order_Invoice::CAPTURE_OFFLINE)
+                        ->setTransactionId($this->clearpayCapturedPaymentId)
                         ->register();
+
                     $this->merchantOrder->addRelatedObject($invoice);
                     $payment = $this->merchantOrder->getPayment();
                     $payment->setCreatedInvoice($invoice);
+
                     Mage::getModel('core/resource_transaction')
                         ->addObject($invoice)
                         ->addObject($invoice->getOrder())
@@ -396,6 +399,7 @@ class Clearpay_Clearpay_NotifyController extends AbstractController
                 'clearpayOrderToken: '. $this->token,
                 true
             );
+
             $this->merchantOrder->save();
         } catch (\Exception $exception) {
             throw new \Exception($exception->getMessage());

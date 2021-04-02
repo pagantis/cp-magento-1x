@@ -15,7 +15,7 @@ class Clearpay_Clearpay_Block_Cart_Cart extends Mage_Core_Block_Template
      */
     protected function _construct()
     {
-        var_dump(Mage::app()->getLocale()->getLocaleCode());die;
+        //var_dump(Mage::app()->getLocale()->getLocaleCode());die;
         $config = Mage::getStoreConfig('payment/clearpay');
         $extraConfig = Mage::helper('clearpay/ExtraConfig')->getExtraConfig();
         $locale = substr(Mage::app()->getLocale()->getLocaleCode(), -2, 2);
@@ -36,16 +36,6 @@ class Clearpay_Clearpay_Block_Cart_Cart extends Mage_Core_Block_Template
             $clearpayRestrictedCategories = explode(",", $clearpayRestrictedCategories);
             $categoryRestriction = (bool) count(array_intersect($productCategories, $clearpayRestrictedCategories));
         }
-        var_dump(
-            'locale:' . strtoupper($locale),
-            'allowedCountries:' .json_decode($allowedCountries),
-            'active:' .$config['active'],
-            'clearpay_merchant_id:' .$config['clearpay_merchant_id'],
-            'clearpay_secret_key:' .$config['clearpay_secret_key'],
-            'restrictedCategoriesCPay:' .$clearpayRestrictedCategories,
-            'restrictedCategoriesMg1:' .$productCategories,
-            '$categoryRestriction:' .$categoryRestriction
-        );
 
         if (in_array(strtoupper($locale), $allowedCountries) &&
             $config['active'] === '1' &&

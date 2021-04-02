@@ -16,9 +16,13 @@ class Clearpay_Clearpay_Model_Clearpay extends Mage_Payment_Model_Method_Abstrac
     protected $_formBlockType = 'clearpay/checkout_clearpay';
 
     /**
+     * Payment Method features common for all payment methods
+     *
      * @var bool
      */
     protected $_isInitializeNeeded = true;
+    protected $_canRefund                  = true;
+    protected $_canRefundInvoicePartial    = true;
 
     /**
      * Get checkout session namespace
@@ -28,6 +32,38 @@ class Clearpay_Clearpay_Model_Clearpay extends Mage_Payment_Model_Method_Abstrac
     public function getCheckout()
     {
         return Mage::getSingleton('checkout/session');
+    }
+
+    public function refund(Varien_Object $payment, $amount)
+    {
+        var_dump('Refund line');
+        return $this;
+        /*$url = $this->getApiAdapter()->getApiRouter()->getRefundUrl($payment);
+        $helper = $this->helper();
+
+        $helper->log('Refunding order url: ' . $url . ' amount: ' . $amount, Zend_Log::DEBUG);
+
+        if( $amount == 0 ) {
+            $helper->log("Zero amount refund is detected, skipping Afterpay API Refunding");
+            return $this;
+        }
+
+        //Ver 1 needs Merchant Reference variable
+        $body = $this->getApiAdapter()->buildRefundRequest($amount, $payment);
+
+        $response = $this->_sendRequest($url, $body, 'POST');
+        $resultObject = json_decode($response, true);
+
+        if (isset($resultObject['errorId']) || isset($resultObject['errorCode'])) {
+            throw Mage::exception(
+                'Afterpay_Afterpay',
+                $helper->__('Afterpay API Error: %s', $resultObject['message'])
+            );
+        }
+
+        $helper->log("refund results:\n" . print_r($resultObject, true), Zend_Log::DEBUG);
+
+        return $this;*/
     }
 
     /**
@@ -92,12 +128,11 @@ class Clearpay_Clearpay_Model_Clearpay extends Mage_Payment_Model_Method_Abstrac
         $config = Mage::getStoreConfig('payment/clearpay');
         $minAmount = $config['clearpay_min_amount'];
         $maxAmount = $config['clearpay_max_amount'];
-
         if ($quote && floor($quote->getBaseGrandTotal()) < $minAmount) {
             return false;
         }
 
-        if ($quote && floor($quote->getBaseGrandTotal()) > $maxAmount && $maxAmount != '0') {
+        if ($quote && floor($quote->getBaseGrandTotal())>$maxAmount && $maxAmount != '0') {
             return false;
         }
 
