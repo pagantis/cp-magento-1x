@@ -10,19 +10,18 @@ class Clearpay_Clearpay_Model_Clearpay extends Mage_Payment_Model_Method_Abstrac
      */
     protected $_code  = 'clearpay';
 
-    /**
-     * @var string
-     */
-    protected $_formBlockType = 'clearpay/checkout_clearpay';
-
-    /**
-     * Payment Method features common for all payment methods
+     /** Payment Method features common for all payment methods
      *
      * @var bool
      */
     protected $_isInitializeNeeded = true;
     protected $_canRefund                  = true;
     protected $_canRefundInvoicePartial    = true;
+
+    /**
+     * @var string
+     */
+    protected $_formBlockType = 'clearpay/checkout_clearpay';
 
     /**
      * Get checkout session namespace
@@ -145,4 +144,5 @@ class Clearpay_Clearpay_Model_Clearpay extends Mage_Payment_Model_Method_Abstrac
 
         return parent::isAvailable();
     }
+
 }
