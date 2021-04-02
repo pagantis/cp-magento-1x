@@ -24,11 +24,6 @@ class Clearpay_Clearpay_Model_Clearpay extends Mage_Payment_Model_Method_Abstrac
     protected $_canRefundInvoicePartial    = true;
 
     /**
-     * @var string
-     */
-    protected $_formBlockType = 'clearpay/checkout_clearpay';
-
-    /**
      * Get checkout session namespace
      *
      * @return Mage_Checkout_Model_Session
