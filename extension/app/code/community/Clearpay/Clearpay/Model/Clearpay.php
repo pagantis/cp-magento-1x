@@ -10,6 +10,11 @@ class Clearpay_Clearpay_Model_Clearpay extends Mage_Payment_Model_Method_Abstrac
      */
     protected $_code  = 'clearpay';
 
+    /**
+     * @var string
+     */
+    protected $_formBlockType = 'clearpay/checkout_clearpay';
+
      /** Payment Method features common for all payment methods
      *
      * @var bool
