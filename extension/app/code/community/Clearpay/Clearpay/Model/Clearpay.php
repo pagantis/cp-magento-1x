@@ -1,9 +1,6 @@
 <?php
 require_once(__DIR__.'/../../../../../../lib/Clearpay/autoload.php');
 
-use Afterpay\SDK\HTTP\Request\CreateCheckout;
-use Afterpay\SDK\MerchantAccount as ClearpayMerchantAccount;
-
 /**
  * Class Clearpay_Clearpay_Model_Clearpay
  */

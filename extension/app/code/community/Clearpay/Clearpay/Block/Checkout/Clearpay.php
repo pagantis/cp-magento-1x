@@ -104,12 +104,7 @@ class Clearpay_Clearpay_Block_Checkout_Clearpay extends Mage_Payment_Block_Form
         $template = $this->setTemplate('clearpay/checkout/clearpay.phtml');
         $template->assign(array(
             'SDK_URL' => self::CLEARPAY_JS_CDN_URL,
-            'MOREINFO_HEADER' => $this->__('Instant approval decision - 4 interest-free payments of')
-                . ' ' . $amountWithCurrency,
-            'MOREINFO_ONE' => $this->__('You will be redirected to Clearpay website to fill out your payment information.')
-                . ' ' .$this->__('You will be redirected to our site to complete your order. Please note: ')
-                . ' ' . $this->__('Clearpay can only be used as a payment method for orders with a shipping')
-                . ' ' . $this->__('and billing address within the UK.'),
+            'MOREINFO' => $this->__('You will be redirected to Clearpay to fill out your payment information.'),
             'TOTAL_AMOUNT' => $this->parseAmount($amount),
             'ISO_COUNTRY_CODE' => $localeISOCode,
             'CURRENCY' => $currency,

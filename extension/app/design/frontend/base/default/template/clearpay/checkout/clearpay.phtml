@@ -18,15 +18,14 @@ $iconUrl =$this->getSkinUrl('images/clearpay/favicon.png');
         color: #7a7a7a;
         position: relative;
         line-height: 40px;
-        text-align: right;
+        text-align: center;
         padding-right: 20px;
         background-color: #b2fce4;
+        height: 40px;
     }
     .clearpay-header img {
         height: 40px;
-        position: absolute;
-        top: 0px;
-        left: 5px;
+        display: inline-block;
     }
     .clearpay-more-info-text {
         padding: 1em 3em;
@@ -78,11 +77,11 @@ $iconUrl =$this->getSkinUrl('images/clearpay/favicon.png');
     <div class="payment-method" id="clearpay-method" >
         <div class="payment-method-content clearpay" id="clearpay-method-content">
             <div class="clearpay-header">
-                <img src="<?php echo $logoUrl;?>"> <?php echo $MOREINFO_HEADER;?>
+                <img src="<?php echo $logoUrl;?>">
             </div>
             <div class="clearpay-more-info-text">
                 <div class="clearpay-more-info">
-                    <?php echo $MOREINFO_ONE;?>
+                    <?php echo $MOREINFO;?>
                 </div>
                 <afterpay-placement
                         data-type="price-table"
