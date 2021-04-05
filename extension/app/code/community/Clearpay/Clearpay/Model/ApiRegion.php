@@ -11,11 +11,6 @@ class Clearpay_Clearpay_Model_ApiRegion
     const EU = 'ES';
 
     /**
-     * GB
-     */
-    const GB = 'GB';
-
-    /**
      * @return array
      */
     public function toOptionArray()
@@ -24,10 +19,6 @@ class Clearpay_Clearpay_Model_ApiRegion
             array(
                 'label' => Mage::helper('clearpay')->__(' Europe'),
                 'value' => self::EU,
-            ),
-            array(
-                'label' => Mage::helper('clearpay')->__(' United Kingdom'),
-                'value' => self::GB,
             )
         );
     }

@@ -20,7 +20,6 @@ class Clearpay_Clearpay_Block_Cart_Cart extends Mage_Core_Block_Template
         $locale = substr(Mage::app()->getLocale()->getLocaleCode(), -2, 2);
         $localeISOCode = Mage::app()->getLocale()->getLocaleCode();
         $allowedCountries = json_decode($extraConfig['ALLOWED_COUNTRIES']);
-
         $checkoutSession = Mage::getModel('checkout/session');
         $quote = $checkoutSession->getQuote();
         $amount = $quote->getGrandTotal();
@@ -35,6 +34,7 @@ class Clearpay_Clearpay_Block_Cart_Cart extends Mage_Core_Block_Template
             $clearpayRestrictedCategories = explode(",", $clearpayRestrictedCategories);
             $categoryRestriction = (bool) count(array_intersect($productCategories, $clearpayRestrictedCategories));
         }
+
         if (in_array(strtoupper($locale), $allowedCountries) &&
             $config['active'] === '1' &&
             !empty($config['clearpay_merchant_id']) &&

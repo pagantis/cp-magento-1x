@@ -1,5 +1,5 @@
 <_>
-   <form_key>mbs4qDrpYV5l9ELs</form_key>
+   <form_key>2Oklgp3cnV2EnjGY</form_key>
    <name>Clearpay_Clearpay</name>
    <channel>community</channel>
    <version_ids>
@@ -20,9 +20,9 @@ And everything that is necessary to boost your sales!
 Recurrent business: Clearpay is the payment method that puts the customer at the center of everything. Your customers will pay for their purchases in less than two months, which will allow them to buy again.&quot;</description>
    <license>GPL</license>
    <license_uri/>
-   <version>1.0.1</version>
+   <version>1.0.2</version>
    <stability>stable</stability>
-   <notes>* Magento 1.14 E.E compatible
+   <notes>* New Feature: Enabled refunds from admin panel
 </notes>
    <authors>
       <name>
@@ -52,7 +52,7 @@ Recurrent business: Clearpay is the payment method that puts the customer at the
             <max/>
          </max>
          <files>
-            <files>                                                                                     </files>
+            <files>                                                                                      </files>
          </files>
       </package>
       <extension>

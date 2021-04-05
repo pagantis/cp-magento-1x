@@ -119,6 +119,7 @@ class Clearpay_Clearpay_Helper_MerchantConfiguration extends Mage_Core_Helper_Ab
     public function getMinAmount()
     {
         if ($this->merchantConfig!=null && isset($this->merchantConfig->minimumAmount)) {
+            $this->setConfigData('clearpay_min_amount', $this->merchantConfig->minimumAmount->amount);
             return $this->merchantConfig->minimumAmount->amount;
         }
 
@@ -136,6 +137,7 @@ class Clearpay_Clearpay_Helper_MerchantConfiguration extends Mage_Core_Helper_Ab
     public function getMaxAmount()
     {
         if ($this->merchantConfig!=null && isset($this->merchantConfig->maximumAmount)) {
+            $this->setConfigData('clearpay_min_amount', $this->merchantConfig->maximumAmount->amount);
             return $this->merchantConfig->maximumAmount->amount;
         }
 
@@ -157,5 +159,19 @@ class Clearpay_Clearpay_Helper_MerchantConfiguration extends Mage_Core_Helper_Ab
             return $this->defaultCountriesPerRegion[$region];
         }
         return json_encode(array());
+    }
+
+    /**
+     * Save information from payment configuration
+     *
+     * @param string $field
+     * @param string $value
+     *
+     * @return mixed
+     */
+    public function setConfigData($field, $value)
+    {
+        $path = 'payment/clearpay/'.$field;
+        return Mage::getConfig()->saveConfig($path, $value, 'default', 0);
     }
 }
