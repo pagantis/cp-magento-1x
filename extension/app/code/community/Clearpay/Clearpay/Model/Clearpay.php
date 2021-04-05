@@ -1,4 +1,8 @@
 <?php
+require_once(__DIR__.'/../../../../../../lib/Clearpay/autoload.php');
+
+use Afterpay\SDK\HTTP\Request\CreateCheckout;
+use Afterpay\SDK\MerchantAccount as ClearpayMerchantAccount;
 
 /**
  * Class Clearpay_Clearpay_Model_Clearpay
@@ -31,38 +35,6 @@ class Clearpay_Clearpay_Model_Clearpay extends Mage_Payment_Model_Method_Abstrac
     public function getCheckout()
     {
         return Mage::getSingleton('checkout/session');
-    }
-
-    public function refund(Varien_Object $payment, $amount)
-    {
-        var_dump('Refund line');
-        return $this;
-        /*$url = $this->getApiAdapter()->getApiRouter()->getRefundUrl($payment);
-        $helper = $this->helper();
-
-        $helper->log('Refunding order url: ' . $url . ' amount: ' . $amount, Zend_Log::DEBUG);
-
-        if( $amount == 0 ) {
-            $helper->log("Zero amount refund is detected, skipping Afterpay API Refunding");
-            return $this;
-        }
-
-        //Ver 1 needs Merchant Reference variable
-        $body = $this->getApiAdapter()->buildRefundRequest($amount, $payment);
-
-        $response = $this->_sendRequest($url, $body, 'POST');
-        $resultObject = json_decode($response, true);
-
-        if (isset($resultObject['errorId']) || isset($resultObject['errorCode'])) {
-            throw Mage::exception(
-                'Afterpay_Afterpay',
-                $helper->__('Afterpay API Error: %s', $resultObject['message'])
-            );
-        }
-
-        $helper->log("refund results:\n" . print_r($resultObject, true), Zend_Log::DEBUG);
-
-        return $this;*/
     }
 
     /**
@@ -145,4 +117,69 @@ class Clearpay_Clearpay_Model_Clearpay extends Mage_Payment_Model_Method_Abstrac
         return parent::isAvailable();
     }
 
+
+    /**
+     * @param Varien_Object $payment
+     * @param               $amount
+     * @return $this
+     */
+    public function refund(Varien_Object $payment, $amount)
+    {
+        $clearpayRefund = $this->createRefundObject();
+        // ---- needed values ----
+        $transactionId = '';
+        $order = $payment->getOrder();
+        if ($order->hasInvoices()) {
+            $oInvoiceCollection = $order->getInvoiceCollection();
+            foreach ($oInvoiceCollection as $oInvoice) {
+                $transactionId = $oInvoice->getTransactionId();
+            }
+        }
+        $currencyCode = Mage::app()->getStore()->getCurrentCurrencyCode();
+        // ------------------------
+        $clearpayRefund->setOrderId($transactionId);
+        $clearpayRefund->setRequestId(md5(uniqid(rand(), true)));
+        $clearpayRefund->setAmount(
+            $amount,
+            $currencyCode
+        );
+        $clearpayRefund->setMerchantReference($order->id);
+
+
+        if ($clearpayRefund->send()) {
+            if ($clearpayRefund->getResponse()->isSuccessful()) {
+                return $this;
+            }
+            $parsedBody = $clearpayRefund->getResponse()->getParsedBody();
+            $message = "Clearpay Full Refund Error: " . $parsedBody->errorCode . '-> ' . $parsedBody->message;
+            Mage::log($message, 3, 'clearpay.log', true);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Construct the Refunds Object based on the configuration and Refunds type
+     * @return Afterpay\SDK\HTTP\Request\CreateRefund
+     */
+    private function createRefundObject()
+    {
+
+        $publicKey = $this->getConfigData('clearpay_merchant_id');
+        $secretKey = $this->getConfigData('clearpay_secret_key');
+        $environment = $this->getConfigData('clearpay_environment');
+
+        $merchantAccount = new Afterpay\SDK\MerchantAccount();
+        $merchantAccount
+            ->setMerchantId($publicKey)
+            ->setSecretKey($secretKey)
+            ->setApiEnvironment($environment)
+            ->setCountryCode('ES')
+        ;
+
+        $clearpayRefund = new Afterpay\SDK\HTTP\Request\CreateRefund();
+        $clearpayRefund->setMerchantAccount($merchantAccount);
+
+        return $clearpayRefund;
+    }
 }

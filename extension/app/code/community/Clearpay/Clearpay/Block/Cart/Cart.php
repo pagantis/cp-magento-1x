@@ -15,13 +15,11 @@ class Clearpay_Clearpay_Block_Cart_Cart extends Mage_Core_Block_Template
      */
     protected function _construct()
     {
-        //var_dump(Mage::app()->getLocale()->getLocaleCode());die;
         $config = Mage::getStoreConfig('payment/clearpay');
         $extraConfig = Mage::helper('clearpay/ExtraConfig')->getExtraConfig();
         $locale = substr(Mage::app()->getLocale()->getLocaleCode(), -2, 2);
         $localeISOCode = Mage::app()->getLocale()->getLocaleCode();
         $allowedCountries = json_decode($extraConfig['ALLOWED_COUNTRIES']);
-
         $checkoutSession = Mage::getModel('checkout/session');
         $quote = $checkoutSession->getQuote();
         $amount = $quote->getGrandTotal();

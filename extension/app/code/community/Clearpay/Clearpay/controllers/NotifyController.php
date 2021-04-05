@@ -395,11 +395,10 @@ class Clearpay_Clearpay_NotifyController extends AbstractController
             $this->merchantOrder->setState(
                 Mage_Sales_Model_Order::STATE_PROCESSING,
                 Mage_Sales_Model_Order::STATE_PROCESSING,
-                'clearpayOrderId: ' . $this->clearpayCapturedPaymentId. ' ' .
-                'clearpayOrderToken: '. $this->token,
+                'clearpay_order_id: ' . $this->clearpayCapturedPaymentId. ' ' .
+                'clearpay_order_token: '. $this->clearpayOrder->token,
                 true
             );
-
             $this->merchantOrder->save();
         } catch (\Exception $exception) {
             throw new \Exception($exception->getMessage());
@@ -436,8 +435,8 @@ class Clearpay_Clearpay_NotifyController extends AbstractController
                 Mage_Sales_Model_Order::STATE_PENDING_PAYMENT,
                 Mage_Sales_Model_Order::STATE_PENDING_PAYMENT,
                 'Rollback merchant order with: 
-                 clearpayOrderId: ' . $this->clearpayCapturedPaymentId. ' ' .
-                ' and clearpayOrderToken: '. $this->token,
+                clearpay_order_id: ' . $this->clearpayCapturedPaymentId. ' ' .
+                'clearpay_order_token: '. $this->clearpayOrder->token,
                 false
             );
             $this->merchantOrder->save();
