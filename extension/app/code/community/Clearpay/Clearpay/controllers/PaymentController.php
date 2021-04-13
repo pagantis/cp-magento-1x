@@ -239,7 +239,7 @@ class Clearpay_Clearpay_PaymentController extends AbstractController
                     $this->currency
                 )
                 ->setConsumer(array(
-                    'phoneNumber' => $shippingTelephone,
+                    'phoneNumber' => $shippingTelephone . '',
                     'givenNames' => $shippingFirstName,
                     'surname' => $shippingLastName,
                     'email' => $email
@@ -251,7 +251,7 @@ class Clearpay_Clearpay_PaymentController extends AbstractController
                     'state' => '',
                     'postcode' => $billingPostCode,
                     'countryCode' => $billingCountryId,
-                    'phoneNumber' => $billingTelephone
+                    'phoneNumber' => $billingTelephone . ''
                 ))
                 ->setShipping(array(
                     'name' => $shippingFirstName . " " . $shippingLastName,
@@ -260,7 +260,7 @@ class Clearpay_Clearpay_PaymentController extends AbstractController
                     'state' => '',
                     'postcode' => $shippingPostCode,
                     'countryCode' => $shippingCountryId,
-                    'phoneNumber' => $shippingTelephone
+                    'phoneNumber' => $shippingTelephone . ''
                 ))
                 ->setShippingAmount(
                     $this->parseAmount($this->magentoOrder->getShippingAmount()),
