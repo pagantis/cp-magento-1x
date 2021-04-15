@@ -171,16 +171,16 @@ class Clearpay_Clearpay_PaymentController extends AbstractController
         $orderBillingAddress = null;
         $mgShippingAddress = null;
         $mgBillingAddress = null;
-        $shippingFirstName = null;
-        $shippingLastName = null;
+        $shippingFirstName = '';
+        $shippingLastName = '';
         $shippingTelephone = null;
         $shippingAddress = null;
         $shippingCity = null;
         $shippingPostCode = null;
         $shippingCountryId = null;
         $mgBillingAddress = null;
-        $billingFirstName = null;
-        $billingLastName = null;
+        $billingFirstName = '';
+        $billingLastName = '';
         $billingTelephone = null;
         $billingAddress = null;
         $billingCity = null;
@@ -190,13 +190,13 @@ class Clearpay_Clearpay_PaymentController extends AbstractController
             for ($i = 0; $i <= count($this->addressData); $i++) {
                 if (isset($this->addressData[$i]) && array_search('shipping', $this->addressData[$i])) {
                     $mgShippingAddress = $this->addressData[$i];
-                    $shippingFirstName = $mgShippingAddress['firstname'];
-                    $shippingLastName = $mgShippingAddress['lastname'];
-                    $shippingTelephone = $mgShippingAddress['telephone'];
-                    $shippingAddress = $mgShippingAddress['street'];
-                    $shippingCity = $mgShippingAddress['city'];
-                    $shippingPostCode = $mgShippingAddress['postcode'];
-                    $shippingCountryId = $mgShippingAddress['country_id'];
+                    $shippingFirstName = (!empty($mgShippingAddress['firstname']))?$mgShippingAddress['firstname']:'';
+                    $shippingLastName = (!empty($mgShippingAddress['lastname']))?$mgShippingAddress['lastname']:'';
+                    $shippingTelephone = (!empty($mgShippingAddress['telephone']))?$mgShippingAddress['telephone']:'';
+                    $shippingAddress = (!empty($mgShippingAddress['street']))?$mgShippingAddress['street']:'';
+                    $shippingCity = (!empty($mgShippingAddress['city']))?$mgShippingAddress['city']:'';
+                    $shippingPostCode = (!empty($mgShippingAddress['postcode']))?$mgShippingAddress['postcode']:'';
+                    $shippingCountryId = (!empty($mgShippingAddress['country_id']))?$mgShippingAddress['country_id']:'';
                 }
                 if (isset($this->addressData[$i]) && array_search('billing', $this->addressData[$i])) {
                     $mgBillingAddress = $this->addressData[$i];
@@ -239,13 +239,13 @@ class Clearpay_Clearpay_PaymentController extends AbstractController
                     $this->currency
                 )
                 ->setConsumer(array(
-                    'phoneNumber' => $shippingTelephone . '',
-                    'givenNames' => $shippingFirstName,
-                    'surname' => $shippingLastName,
+                    'phoneNumber' => (!empty($shippingTelephone))?$shippingTelephone:$billingTelephone. '',
+                    'givenNames' => (!empty($shippingFirstName))?$shippingFirstName:$billingFirstName.'',
+                    'surname' => (!empty($shippingLastName))?$shippingLastName:$billingLastName,
                     'email' => $email
                 ))
                 ->setBilling(array(
-                    'name' => $billingFirstName . " " . $billingLastName,
+                    'name' => $billingFirstName . ' ' . $billingLastName,
                     'line1' => $billingAddress,
                     'suburb' => $billingCity,
                     'state' => '',
@@ -254,13 +254,14 @@ class Clearpay_Clearpay_PaymentController extends AbstractController
                     'phoneNumber' => $billingTelephone . ''
                 ))
                 ->setShipping(array(
-                    'name' => $shippingFirstName . " " . $shippingLastName,
-                    'line1' => $shippingAddress,
-                    'suburb' => $shippingCity,
+                    'name' => ((!empty($shippingFirstName))?$shippingFirstName:$billingFirstName) . ' ' .
+                        ((!empty($shippingLastName))?$shippingLastName:$billingLastName).'',
+                    'line1' => (!empty($shippingAddress))?$shippingAddress:$billingAddress,
+                    'suburb' => (!empty($shippingCity))?$shippingCity:$billingCity,
                     'state' => '',
-                    'postcode' => $shippingPostCode,
-                    'countryCode' => $shippingCountryId,
-                    'phoneNumber' => $shippingTelephone . ''
+                    'postcode' => (!empty($shippingPostCode))?$shippingPostCode:$billingPostCode,
+                    'countryCode' => (!empty($shippingCountryId))?$shippingCountryId:$billingCountryId,
+                    'phoneNumber' => (!empty($shippingTelephone))?$shippingTelephone:$billingTelephone
                 ))
                 ->setShippingAmount(
                     $this->parseAmount($this->magentoOrder->getShippingAmount()),
@@ -268,7 +269,7 @@ class Clearpay_Clearpay_PaymentController extends AbstractController
                 )
                 ->setCourier(array(
                     'shippedAt' => '',
-                    'name' => (string)$this->magentoOrder->getShippingMethod(),
+                    'name' => (string)$this->magentoOrder->getShippingMethod().' ',
                     'tracking' => '',
                     'priority' => 'STANDARD'
                 ));
@@ -287,7 +288,7 @@ class Clearpay_Clearpay_PaymentController extends AbstractController
             $products = array();
             foreach ($this->itemCollection as $item) {
                 $products[] = array(
-                    'name' => $item->getName(),
+                    'name' => $item->getName().' ',
                     'sku' => '',
                     'quantity' => (int) $item->getQtyToShip(),
                     'price' => array(
