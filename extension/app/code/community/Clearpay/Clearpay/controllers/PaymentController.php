@@ -302,6 +302,7 @@ class Clearpay_Clearpay_PaymentController extends AbstractController
                 );
             }
             $createCheckoutRequest->setItems($products);
+            $createCheckoutRequest->setMerchantReference($this->magentoOrderId);
 
             $header = 'Magento 1.x/' . (string)$node->modules->Clearpay_Clearpay->version
                 . '(Magento/' . Mage::getVersion() . '; PHP/' . phpversion() . '; Merchant/' . $this->publicKey

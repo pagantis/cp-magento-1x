@@ -344,8 +344,7 @@ class Clearpay_Clearpay_NotifyController extends AbstractController
     {
         $immediatePaymentCaptureRequest = new ClearpayImmediatePaymentCaptureRequest(
             array(
-                'token' => $this->clearpayOrder->token,
-                'merchantReference' => $this->config['publicKey']
+                'token' => $this->clearpayOrder->token
             )
         );
         $immediatePaymentCaptureRequest->setMerchantAccount($this->clearpayMerchantAccount);
