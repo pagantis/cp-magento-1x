@@ -140,7 +140,7 @@ class Clearpay_Clearpay_Model_Clearpay extends Mage_Payment_Model_Method_Abstrac
             $amount,
             $currencyCode
         );
-        $clearpayRefund->setMerchantReference($order->id);
+        $clearpayRefund->setMerchantReference($order->getId());
 
 
         if ($clearpayRefund->send()) {

@@ -252,17 +252,21 @@ class Clearpay_Clearpay_PaymentController extends AbstractController
                     'postcode' => $billingPostCode,
                     'countryCode' => $billingCountryId,
                     'phoneNumber' => $billingTelephone . ''
-                ))
-                ->setShipping(array(
-                    'name' => ((!empty($shippingFirstName))?$shippingFirstName:$billingFirstName) . ' ' .
-                        ((!empty($shippingLastName))?$shippingLastName:$billingLastName).'',
-                    'line1' => (!empty($shippingAddress))?$shippingAddress:$billingAddress,
-                    'suburb' => (!empty($shippingCity))?$shippingCity:$billingCity,
-                    'state' => '',
-                    'postcode' => (!empty($shippingPostCode))?$shippingPostCode:$billingPostCode,
-                    'countryCode' => (!empty($shippingCountryId))?$shippingCountryId:$billingCountryId,
-                    'phoneNumber' => (!empty($shippingTelephone))?$shippingTelephone:$billingTelephone
-                ))
+                ));
+            if(!empty($shippingFirstName) && !empty($shippingTelephone))
+            {
+                $createCheckoutRequest
+                    ->setShipping(array(
+                        'name' => $shippingFirstName . ' ' . ((!empty($shippingLastName))?$shippingLastName:''),
+                        'line1' => $shippingAddress,
+                        'suburb' => $shippingCity,
+                        'state' => '',
+                        'postcode' => $shippingPostCode,
+                        'countryCode' => $shippingCountryId,
+                        'phoneNumber' => $shippingTelephone
+                    ));
+            }
+            $createCheckoutRequest
                 ->setShippingAmount(
                     $this->parseAmount($this->magentoOrder->getShippingAmount()),
                     $this->currency

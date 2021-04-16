@@ -33,6 +33,12 @@
 
     </style>
     <div class="payment-method-note clearpay-cart-note version-<?php echo $VERSION;?>" style="">
+        <script
+                src="<?php echo $SDK_URL;?>"
+                data-min="<?php echo $CLEARPAY_MIN_AMOUNT;?>"
+                data-max="<?php echo $CLEARPAY_MAX_AMOUNT;?>"
+                async>
+        </script>
         <afterpay-placement
                 data-locale="<?php echo $ISO_COUNTRY_CODE;?>"
                 data-currency="<?php echo $CURRENCY;?>"
