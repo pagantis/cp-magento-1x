@@ -16,7 +16,7 @@
     {
         var selectors = "<?php echo $PRICE_SELECTOR;?>";
         var arrSelectors = selectors.split('|');
-        var selector = arrSelectors[0];
+        var selector = undefined;
         for (var i = 0; i < arrSelectors.length; i++) {
             if (document.querySelectorAll(arrSelectors[i]).length > 0) {
                 selector = arrSelectors[i];
@@ -24,14 +24,16 @@
             }
         }
 
-        Afterpay.createPlacements({
-            targetSelector: "<?php echo $PRICE_SELECTOR_CONTAINER;?>",
-            attributes: {
-                locale:"<?php echo $ISO_COUNTRY_CODE;?>",
-                currency:"<?php echo $CURRENCY;?>",
-                amountSelector: selector,
-                id: "ClearpaySimulator"
-            }
-        });
+        if (typeof selector != 'undefined') {
+            Afterpay.createPlacements({
+                targetSelector: "<?php echo $PRICE_SELECTOR_CONTAINER;?>",
+                attributes: {
+                    locale:"<?php echo $ISO_COUNTRY_CODE;?>",
+                    currency:"<?php echo $CURRENCY;?>",
+                    amountSelector: selector,
+                    id: "ClearpaySimulator"
+                }
+            });
+        }
     };
 </script>

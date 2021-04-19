@@ -137,7 +137,7 @@ class Clearpay_Clearpay_Helper_MerchantConfiguration extends Mage_Core_Helper_Ab
     public function getMaxAmount()
     {
         if ($this->merchantConfig!=null && isset($this->merchantConfig->maximumAmount)) {
-            $this->setConfigData('clearpay_min_amount', $this->merchantConfig->maximumAmount->amount);
+            $this->setConfigData('clearpay_max_amount', $this->merchantConfig->maximumAmount->amount);
             return $this->merchantConfig->maximumAmount->amount;
         }
 
