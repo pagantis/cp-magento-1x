@@ -178,11 +178,13 @@ class Clearpay_Clearpay_PaymentController extends AbstractController
         $shippingCity = null;
         $shippingPostCode = null;
         $shippingCountryId = null;
+        $shippingState = '';
         $mgBillingAddress = null;
         $billingFirstName = '';
         $billingLastName = '';
         $billingTelephone = null;
         $billingAddress = null;
+        $billingState = '';
         $billingCity = null;
         $billingPostCode = null;
         $billingCountryId = null;
@@ -197,6 +199,7 @@ class Clearpay_Clearpay_PaymentController extends AbstractController
                     $shippingCity = (!empty($mgShippingAddress['city']))?$mgShippingAddress['city']:'';
                     $shippingPostCode = (!empty($mgShippingAddress['postcode']))?$mgShippingAddress['postcode']:'';
                     $shippingCountryId = (!empty($mgShippingAddress['country_id']))?$mgShippingAddress['country_id']:'';
+                    $shippingState = (!empty($mgShippingAddress['region']))?$mgShippingAddress['region']:'';
                 }
                 if (isset($this->addressData[$i]) && array_search('billing', $this->addressData[$i])) {
                     $mgBillingAddress = $this->addressData[$i];
@@ -207,6 +210,7 @@ class Clearpay_Clearpay_PaymentController extends AbstractController
                     $billingCity = $mgBillingAddress['city'];
                     $billingPostCode = $mgBillingAddress['postcode'];
                     $billingCountryId = $mgBillingAddress['country_id'];
+                    $billingState = $mgBillingAddress['region'];
                 }
             }
             \Afterpay\SDK\Model::setAutomaticValidationEnabled(true);
@@ -248,7 +252,7 @@ class Clearpay_Clearpay_PaymentController extends AbstractController
                     'name' => $billingFirstName . ' ' . $billingLastName,
                     'line1' => $billingAddress,
                     'suburb' => $billingCity,
-                    'state' => '',
+                    'state' => $billingState,
                     'postcode' => $billingPostCode,
                     'countryCode' => $billingCountryId,
                     'phoneNumber' => $billingTelephone . ''
@@ -260,7 +264,7 @@ class Clearpay_Clearpay_PaymentController extends AbstractController
                         'name' => $shippingFirstName . ' ' . ((!empty($shippingLastName))?$shippingLastName:''),
                         'line1' => $shippingAddress,
                         'suburb' => $shippingCity,
-                        'state' => '',
+                        'state' => $shippingState,
                         'postcode' => $shippingPostCode,
                         'countryCode' => $shippingCountryId,
                         'phoneNumber' => $shippingTelephone
