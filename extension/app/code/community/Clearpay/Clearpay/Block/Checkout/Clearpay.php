@@ -84,14 +84,14 @@ class Clearpay_Clearpay_Block_Checkout_Clearpay extends Mage_Payment_Block_Form
         if ($currency === 'GBP') {
             $amountWithCurrency = $currencySymbol. $this->parseAmount($amount/4);
         }
-        $checkoutText = $this->__('Or 4 interest-free payments of') . ' ' . $amountWithCurrency . ' ';
-        $checkoutText .= $this->__('with');
 
         $logoHtml = '';
         if ($config['active']) {
             $logoTemplate = new $classCoreTemplate;
             $logoTemplate->assign(array(
-                'TITLE' => (string) $checkoutText,
+                'TOTAL_AMOUNT' => $this->parseAmount($amount),
+                'ISO_COUNTRY_CODE' => $localeISOCode,
+                'CURRENCY' => $currency
             ));
             $logoHtml = $logoTemplate->setTemplate('clearpay/checkout/logo.phtml')->toHtml();
 
