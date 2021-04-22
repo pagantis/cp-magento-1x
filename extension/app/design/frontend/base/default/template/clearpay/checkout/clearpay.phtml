@@ -73,6 +73,10 @@ $iconUrl =$this->getSkinUrl('images/clearpay/favicon.png');
         }
     }
 </style>
+<script>
+    var element = document.getElementById("afterpay-placement-harvey-balls");
+    element.setAttribute("data-amount", window.quoteBaseGrandTotal);
+</script>
 <section>
     <div class="payment-method" id="clearpay-method" >
         <div class="payment-method-content clearpay" id="clearpay-method-content">
@@ -83,7 +87,7 @@ $iconUrl =$this->getSkinUrl('images/clearpay/favicon.png');
                 <div class="clearpay-more-info">
                     <?php echo $MOREINFO;?>
                 </div>
-                <afterpay-placement
+                <afterpay-placement id="afterpay-placement-harvey-balls"
                         data-type="price-table"
                         data-amount="<?php echo $TOTAL_AMOUNT;?>"
                         data-price-table-theme="white"

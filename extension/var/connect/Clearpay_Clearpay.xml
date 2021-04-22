@@ -20,7 +20,7 @@ And everything that is necessary to boost your sales!
 Recurrent business: Clearpay is the payment method that puts the customer at the center of everything. Your customers will pay for their purchases in less than two months, which will allow them to buy again.&quot;</description>
    <license>GPL</license>
    <license_uri/>
-   <version>1.0.2</version>
+   <version>1.0.3</version>
    <stability>stable</stability>
    <notes>* New Feature: Enabled refunds from admin panel
 </notes>

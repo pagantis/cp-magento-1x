@@ -59,6 +59,9 @@ class Clearpay_Clearpay_Block_Cart_Cart extends Mage_Core_Block_Template
             }
 
             $variables = array(
+                'SDK_URL' => self::CLEARPAY_JS_CDN_URL,
+                'CLEARPAY_MIN_AMOUNT' => $config['clearpay_min_amount'],
+                'CLEARPAY_MAX_AMOUNT' => $config['clearpay_max_amount'],
                 'AMOUNT' => $amount,
                 'DESCRIPTION_TEXT_ONE' => $desc1,
                 'DESCRIPTION_TEXT_TWO' => $desc2,

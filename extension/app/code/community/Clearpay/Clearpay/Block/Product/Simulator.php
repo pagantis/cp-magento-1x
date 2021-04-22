@@ -46,7 +46,7 @@ class Clearpay_Clearpay_Block_Product_Simulator extends Mage_Catalog_Block_Produ
         ) {
             $priceSelector = $config['clearpay_price_selector'];
             if ($priceSelector == 'default' || empty($priceSelector)) {
-                $priceSelector = '[id^=\'product-price\'] .price';
+                $priceSelector = '.product-view .price-info .special-price .price|.product-view .price-info .regular-price .price|.product-view .price-info .price-as-configured .price';
             }
             $positionSelector = $config['clearpay_position_selector'];
             if ($positionSelector == 'default' || empty($positionSelector)) {

@@ -20,7 +20,20 @@ $magentoVersion = str_replace('.', '-', substr(Mage::getVersion(), 0, 3));
     .magento-1-6 #logo {
         float: none;
     }
+    input#p_method_clearpay {
+        height: 35px;
+    }
 </style>
+<script>
+    var element = document.getElementById("afterpay-placement-widget");
+    element.setAttribute("data-amount", window.quoteBaseGrandTotal);
+</script>
 <div class="clearpay-payment-method magento-<?php echo $magentoVersion; ?>">
-    <?php echo $TITLE; ?><img id="logo" src="<?php echo $logoUrl ?>"/>
+    <afterpay-placement id="afterpay-placement-widget"
+            data-size="sm"
+            data-show-interest-free="false"
+            data-amount="<?php echo $TOTAL_AMOUNT;?>"
+            data-locale="<?php echo $ISO_COUNTRY_CODE;?>"
+            data-currency="<?php echo $CURRENCY;?>">
+    </afterpay-placement>
 </div>
