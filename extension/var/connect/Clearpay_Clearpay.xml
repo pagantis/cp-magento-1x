@@ -1,5 +1,5 @@
 <_>
-   <form_key>2Oklgp3cnV2EnjGY</form_key>
+   <form_key>wmL2IMuxnHNPrVtV</form_key>
    <name>Clearpay_Clearpay</name>
    <channel>community</channel>
    <version_ids>
@@ -22,8 +22,8 @@ Recurrent business: Clearpay is the payment method that puts the customer at the
    <license_uri/>
    <version>1.0.4</version>
    <stability>stable</stability>
-   <notes>* New Feature: Enabled refunds from admin panel
-</notes>
+   <notes>* Get the unitary price when the cart has more than one unit of an item
+* Improve thresholds min and max amount  save when retrieve configuration.</notes>
    <authors>
       <name>
          <name>Clearpay</name>
@@ -52,7 +52,7 @@ Recurrent business: Clearpay is the payment method that puts the customer at the
             <max/>
          </max>
          <files>
-            <files>                                                                                      </files>
+            <files>                                                                                       </files>
          </files>
       </package>
       <extension>
@@ -134,4 +134,8 @@ Recurrent business: Clearpay is the payment method that puts the customer at the
          <ignore/>
       </ignore>
    </contents>
+   <page>1</page>
+   <limit>200</limit>
+   <folder/>
+   <package/>
 </_>
