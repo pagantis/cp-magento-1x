@@ -300,7 +300,7 @@ class Clearpay_Clearpay_PaymentController extends AbstractController
                     'sku' => '',
                     'quantity' => (int) $item->getQtyToShip(),
                     'price' => array(
-                        'amount' => $this->parseAmount($item->getRowTotalInclTax()),
+                        'amount' => $this->parseAmount($item->getOriginalPrice()),
                         'currency' => $this->currency
                     )
                 );
