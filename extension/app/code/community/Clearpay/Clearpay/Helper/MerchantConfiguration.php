@@ -83,7 +83,7 @@ class Clearpay_Clearpay_Helper_MerchantConfiguration extends Mage_Core_Helper_Ab
         }
 
         if (is_array($configurationResponse) && isset($configurationResponse[0]->maximumAmount)) {
-            $this->setConfigData('clearpay_min_amount', $configurationResponse[0]->minimumAmount->amount);
+            $this->setConfigData('clearpay_max_amount', $configurationResponse[0]->minimumAmount->amount);
         }
 
         if (is_array($configurationResponse) && isset($configurationResponse[0]->activeCountries)) {
