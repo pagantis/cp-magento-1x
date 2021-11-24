@@ -64,25 +64,28 @@ class Clearpay_Clearpay_Helper_MerchantConfiguration extends Mage_Core_Helper_Ab
             !empty($this->moduleConfig['clearpay_environment']) &&
             !empty($language)
         ) {
-            if (!empty($this->moduleConfig['clearpay_merchant_id'])
-                && !empty($this->moduleConfig['clearpay_secret_key'])
-                && $this->moduleConfig['active']
-            ) {
-                $merchantAccount = new Afterpay\SDK\MerchantAccount();
-                $merchantAccount
-                    ->setMerchantId($this->moduleConfig['clearpay_merchant_id'])
-                    ->setSecretKey($this->moduleConfig['clearpay_secret_key'])
-                    ->setApiEnvironment($this->moduleConfig['clearpay_environment'])
-                    ->setCountryCode($this->moduleConfig['clearpay_api_region']);
+            $merchantAccount = new Afterpay\SDK\MerchantAccount();
+            $merchantAccount
+                ->setMerchantId($this->moduleConfig['clearpay_merchant_id'])
+                ->setSecretKey($this->moduleConfig['clearpay_secret_key'])
+                ->setApiEnvironment($this->moduleConfig['clearpay_environment'])
+                ->setCountryCode($this->moduleConfig['clearpay_api_region']);
 
-                $getConfigurationRequest = new Afterpay\SDK\HTTP\Request\GetConfiguration();
-                $getConfigurationRequest->setMerchantAccount($merchantAccount);
-                $getConfigurationRequest->send();
-                $configurationResponse = $getConfigurationRequest->getResponse()->getParsedBody();
-            }
+            $getConfigurationRequest = new Afterpay\SDK\HTTP\Request\GetConfiguration();
+            $getConfigurationRequest->setMerchantAccount($merchantAccount);
+            $getConfigurationRequest->send();
+            $configurationResponse = $getConfigurationRequest->getResponse()->getParsedBody();
         }
 
         // Update the allowed countries each time the config is required
+        if (is_array($configurationResponse) && isset($configurationResponse[0]->minimumAmount)) {
+            $this->setConfigData('clearpay_min_amount', $configurationResponse[0]->minimumAmount->amount);
+        }
+
+        if (is_array($configurationResponse) && isset($configurationResponse[0]->maximumAmount)) {
+            $this->setConfigData('clearpay_max_amount', $configurationResponse[0]->maximumAmount->amount);
+        }
+
         if (is_array($configurationResponse) && isset($configurationResponse[0]->activeCountries)) {
             Mage::helper('clearpay/ExtraConfig')->setExtraConfig(
                 'ALLOWED_COUNTRIES',
@@ -119,7 +122,6 @@ class Clearpay_Clearpay_Helper_MerchantConfiguration extends Mage_Core_Helper_Ab
     public function getMinAmount()
     {
         if ($this->merchantConfig!=null && isset($this->merchantConfig->minimumAmount)) {
-            $this->setConfigData('clearpay_min_amount', $this->merchantConfig->minimumAmount->amount);
             return $this->merchantConfig->minimumAmount->amount;
         }
 
@@ -137,7 +139,6 @@ class Clearpay_Clearpay_Helper_MerchantConfiguration extends Mage_Core_Helper_Ab
     public function getMaxAmount()
     {
         if ($this->merchantConfig!=null && isset($this->merchantConfig->maximumAmount)) {
-            $this->setConfigData('clearpay_max_amount', $this->merchantConfig->maximumAmount->amount);
             return $this->merchantConfig->maximumAmount->amount;
         }
 
